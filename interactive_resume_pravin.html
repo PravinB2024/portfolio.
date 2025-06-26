@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pravin Bharsakle | Sales & Marketing Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Slate -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure is chosen for its intuitive user flow, mirroring how one reads a resume. It begins with a hero section for immediate impact, followed by a sticky navigation for quick access to key areas. The structure is: Hero -> About -> Skills (Interactive Chart) -> Experience (Interactive Timeline) -> Education/Certs -> Awards -> Contact. This non-linear access via the nav combined with the linear scroll provides the best of both worlds. The interactive timeline and skills chart were chosen to make data exploration more engaging than a static list, encouraging user interaction and highlighting key qualifications effectively. -->
+    <!-- Visualization & Content Choices: 
+        - Professional Summary -> Goal: Inform -> Method: Prominent text block -> Justification: Provides immediate context about the candidate.
+        - Skills -> Goal: Compare/Inform -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Visually quantifies skill sets, making them easy to compare and digest. It's more impactful than a simple bulleted list.
+        - Experience -> Goal: Explore Chronology -> Method: Interactive Vertical Timeline (HTML/CSS/JS) -> Interaction: Click to expand/collapse job details -> Justification: Organizes career history cleanly, reduces initial information overload, and encourages user-driven exploration of the candidate's journey.
+        - Education/Certs/Awards -> Goal: Organize -> Method: Card-based grid layout -> Justification: Clearly separates and presents credential information in a structured, easy-to-scan format.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #334155;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #F8F7F4;
+            border: 3px solid #64748B;
+            z-index: 1;
+        }
+        .timeline-path::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #CBD5E1;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #1E293B;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="navbar" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-slate-800">Pravin Bharsakle</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-slate-600 font-medium">About</a>
+                <a href="#skills" class="nav-link text-slate-600 font-medium">Skills</a>
+                <a href="#experience" class="nav-link text-slate-600 font-medium">Experience</a>
+                <a href="#education" class="nav-link text-slate-600 font-medium">Education</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-slate-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-800 transition-colors">Contact Me</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+        
+        <section id="hero" class="text-center mb-20 md:mb-32">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-800 mb-4">Assistant Manager, Sales & Marketing</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8">MBA in Marketing and Real Estate Sales Expert specializing in CRM, lead generation, and driving business growth.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://www.linkedin.com/in/pravin-bharsakle-a717b69a" target="_blank" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">View LinkedIn</a>
+                <a href="mailto:bharsaklepravin@gmail.com" class="bg-white border border-slate-300 text-slate-700 font-bold py-3 px-6 rounded-lg hover:bg-slate-100 transition-colors">Email Me</a>
+            </div>
+        </section>
+
+        <section id="about" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="max-w-4xl mx-auto text-center">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-6">About Me</h2>
+                 <p class="text-slate-600 leading-relaxed">
+                    This section provides a brief overview of my professional background. As a results-driven MBA graduate, I have a proven track record in driving business growth through strategic sales and marketing initiatives. My expertise lies in lead generation, client acquisition, and relationship management, particularly within the real estate and financial services sectors. I am highly proficient in utilizing a wide range of CRM and sales automation tools to enhance efficiency and deliver measurable outcomes. My goal is to leverage these skills to help clients on platforms like Upwork achieve their business objectives.
+                 </p>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">Core Competencies</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">This chart visualizes my key skills across different domains. Hover over the bars to see the specific tools and techniques I'm proficient in. This interactive view allows for a quick comparison of my capabilities in Sales, Marketing, and the software I use to achieve results.</p>
+            </div>
+            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-md">
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">Career Journey</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Explore my professional history through this interactive timeline. Click on any job title to expand the section and view my key responsibilities and accomplishments for that role. This format allows you to easily navigate my career progression and drill down into the details that matter most to you.</p>
+            </div>
+            <div class="relative max-w-3xl mx-auto timeline-path">
+                <div id="timeline-container"></div>
+            </div>
+        </section>
+
+        <section id="education" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">Education & Certifications</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">My formal education and ongoing professional development are foundational to my expertise. This section outlines my academic degrees and the key certifications I've earned to stay current with industry best practices.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-md card">
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">Education</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold">Master of Business Administration (MBA), Marketing</p>
+                            <p class="text-sm text-slate-500">Neville Wadia Institute Of Management Studies | 2019 - 2021</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Bachelor of Engineering (B.E.), Mechanical Engineering</p>
+                            <p class="text-sm text-slate-500">University of Pune | 2013 - 2017</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md card">
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">Certifications</h3>
+                    <ul class="space-y-2 list-inside text-slate-600">
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Fundamentals of Digital Marketing - Google</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Google Analytics Individual Qualification</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Best of SEO 2023</li>
+                        <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Master Digital Marketing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="awards" class="text-center mb-20 md:mb-32 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-6">Recognitions</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                 <div class="bg-white p-6 rounded-xl shadow-md card text-center">
+                    <p class="text-4xl mb-2">&#127942;</p>
+                    <p class="font-semibold text-slate-700">Outstanding Performance of the Year 2019</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md card text-center">
+                    <p class="text-4xl mb-2">&#127942;</p>
+                    <p class="font-semibold text-slate-700">Exceptional Performance and Contribution Award</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="bg-slate-800 text-white scroll-mt-20">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h2 class="text-3xl font-bold mb-4">Let's Connect</h2>
+            <p class="max-w-xl mx-auto mb-8">I'm currently available for freelance opportunities. If you have a project in mind or just want to chat, feel free to reach out.</p>
+            <p class="font-medium text-lg mb-2">bharsaklepravin@gmail.com</p>
+            <p class="font-medium text-lg mb-8">9730275495</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/in/pravin-bharsakle-a717b69a" target="_blank" class="hover:text-slate-300 transition-colors">LinkedIn</a>
+                <span>&bull;</span>
+                <a href="mailto:bharsaklepravin@gmail.com" class="hover:text-slate-300 transition-colors">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const skillsData = {
+                labels: ['Sales & BD', 'Marketing', 'CRM & Sales Tools'],
+                datasets: [{
+                    label: 'Skill Proficiency',
+                    data: [90, 85, 95],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.6)',
+                        'rgba(16, 185, 129, 0.6)',
+                        'rgba(100, 116, 139, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(100, 116, 139, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(skillsChartCtx, {
+                type: 'bar',
+                data: skillsData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.label === 'Sales & BD') {
+                                        return 'Lead Gen, Client Acquisition, Strategy';
+                                    }
+                                    if (context.label === 'Marketing') {
+                                        return 'Content, Email, Digital, SEO';
+                                    }
+                                    if (context.label === 'CRM & Sales Tools') {
+                                        return 'Insightly, Salesforce, Sales Navigator';
+                                    }
+                                    return 'Skill';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                             grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            const experienceData = [
+                {
+                    role: "Assistant Manager - Sales & Marketing",
+                    company: "Gallagher & Mohan",
+                    period: "Apr 2025 - Present",
+                    details: [
+                        "Spearheaded lead generation efforts through automated and manual email campaigns, utilizing tools such as LinkedIn Sales Navigator, SalesQL, and Dux-Soup.",
+                        "Managed and tracked sales activities, pipelines, and client engagement using Insightly CRM.",
+                        "Authored compelling content for the company website, pitch decks, brochures, and promotional videos.",
+                        "Assisted in the development and implementation of a website chatbot to improve client interaction and lead generation.",
+                        "Conducted in-depth market and competitive research to identify new business opportunities."
+                    ]
+                },
+                {
+                    role: "Business Development Executive",
+                    company: "Gallagher & Mohan",
+                    period: "Aug 2023 - Apr 2025",
+                    details: [
+                        "Developed and executed successful business development strategies to achieve and exceed sales targets in the real estate sector.",
+                        "Focused on client acquisition and building long-term relationships to foster business growth.",
+                        "Worked closely with internal teams to ensure seamless project execution and client satisfaction."
+                    ]
+                },
+                {
+                    role: "Assistant Manager",
+                    company: "Bajaj Finserv",
+                    period: "Sep 2021 - Apr 2022",
+                    details: [
+                        "Managed and mentored a team of sales executives, providing training and coaching to enhance their skills and performance.",
+                        "Developed and implemented effective sales strategies, set clear targets, and monitored team progress.",
+                        "Successfully acquired new clients and fostered strong relationships to ensure excellent customer service."
+                    ]
+                },
+                {
+                    role: "Senior Customer Service Associate",
+                    company: "Concentrix",
+                    period: "Mar 2021 - Aug 2021",
+                    details: [
+                        "Provided expert technical troubleshooting for Dell products, resolving hardware, software, and peripheral issues.",
+                        "Utilized remote assistance tools like TeamViewer to deliver efficient customer support.",
+                        "Escalated complex technical issues to higher-level support teams as needed."
+                    ]
+                }
+            ];
+
+            const timelineContainer = document.getElementById('timeline-container');
+            experienceData.forEach(job => {
+                const item = document.createElement('div');
+                item.className = 'relative mb-8 pl-8 timeline-item';
+                
+                let detailsList = job.details.map(detail => `<li class="mb-2 flex items-start"><span class="text-slate-500 mr-2 mt-1">&#8227;</span><span>${detail}</span></li>`).join('');
+
+                item.innerHTML = `
+                    <div class="cursor-pointer">
+                        <p class="text-sm text-slate-500">${job.period}</p>
+                        <h4 class="font-bold text-lg text-slate-800">${job.role}</h4>
+                        <p class="font-medium text-slate-600">${job.company}</p>
+                    </div>
+                    <div class="details-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                        <ul class="mt-4 text-slate-600 list-none">
+                            ${detailsList}
+                        </ul>
+                    </div>
+                `;
+                timelineContainer.appendChild(item);
+
+                item.querySelector('.cursor-pointer').addEventListener('click', () => {
+                    const content = item.querySelector('.details-content');
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        content.style.maxHeight = '0px';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
